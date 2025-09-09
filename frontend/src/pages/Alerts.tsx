@@ -114,11 +114,6 @@ const Alerts = () => {
             AI-powered threat detection and anomaly analysis
           </p>
         </div>
-        <div className="flex items-center space-x-2">
-          <Badge variant="destructive" className="pulse-ring">
-            {alerts.filter(a => a.status === 'open').length} Open Alerts
-          </Badge>
-        </div>
       </div>
 
       {/* Summary Cards */}
@@ -140,21 +135,6 @@ const Alerts = () => {
 
         <Card className="card-cyber">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Under Investigation</CardTitle>
-            <Shield className="h-4 w-4 text-warning" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-warning">
-              {alerts.filter(a => a.status === 'investigating').length}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Currently being reviewed
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="card-cyber">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Avg Confidence</CardTitle>
             <TrendingUp className="h-4 w-4 text-primary" />
           </CardHeader>
@@ -164,21 +144,6 @@ const Alerts = () => {
             </div>
             <p className="text-xs text-muted-foreground">
               ML model accuracy
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="card-cyber">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Resolution Rate</CardTitle>
-            <Clock className="h-4 w-4 text-success" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-success">
-              {Math.round((alerts.filter(a => a.status === 'resolved').length / alerts.length) * 100)}%
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Successfully resolved
             </p>
           </CardContent>
         </Card>
@@ -261,17 +226,6 @@ const Alerts = () => {
                   <SelectItem value="low">Low</SelectItem>
                 </SelectContent>
               </Select>
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-40 bg-secondary/50">
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="open">Open</SelectItem>
-                  <SelectItem value="investigating">Investigating</SelectItem>
-                  <SelectItem value="resolved">Resolved</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
           </CardTitle>
         </CardHeader>
@@ -295,9 +249,6 @@ const Alerts = () => {
                       </div>
                       <Badge variant={getSeverityColor(alert.severity) as any} className="text-xs">
                         {alert.severity.toUpperCase()}
-                      </Badge>
-                      <Badge variant={getStatusColor(alert.status) as any} className="text-xs">
-                        {alert.status.toUpperCase()}
                       </Badge>
                     </div>
                     
@@ -328,9 +279,6 @@ const Alerts = () => {
                   </div>
                   
                   <div className="flex flex-col space-y-2 ml-4">
-                    <Button size="sm" variant="outline">
-                      Investigate
-                    </Button>
                     <Button size="sm" variant="ghost">
                       Details
                     </Button>

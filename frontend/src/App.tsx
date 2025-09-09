@@ -10,7 +10,6 @@ import UserActivity from "./pages/UserActivity";
 import Alerts from "./pages/Alerts";
 import IntentDetection from "./pages/IntentDetection";
 import Analytics from "./pages/Analytics";
-import SystemHealth from "./pages/SystemHealth";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -29,7 +28,6 @@ const App = () => (
           <Route path="/alerts" element={<Layout><Alerts /></Layout>} />
           <Route path="/intent-detection" element={<Layout><IntentDetection /></Layout>} />
           <Route path="/analytics" element={<Layout><Analytics /></Layout>} />
-          <Route path="/system-health" element={<Layout><SystemHealth /></Layout>} />
           <Route path="/settings" element={<Layout><Settings /></Layout>} />
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -43,7 +43,6 @@ const Settings = () => {
       <Tabs defaultValue="alerts" className="space-y-6">
         <TabsList className="grid w-full grid-cols-5 bg-secondary/50">
           <TabsTrigger value="alerts">Alert Thresholds</TabsTrigger>
-          <TabsTrigger value="users">User Management</TabsTrigger>
           <TabsTrigger value="integrations">Integrations</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
@@ -118,64 +117,6 @@ const Settings = () => {
                   checked={autoResponse}
                   onCheckedChange={setAutoResponse}
                 />
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* User Management */}
-        <TabsContent value="users" className="space-y-6">
-          <Card className="card-cyber">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Users className="w-5 h-5 text-primary" />
-                <span>Administrator Management</span>
-              </CardTitle>
-              <CardDescription>
-                Add, remove, and manage system administrators
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex space-x-4">
-                <Input
-                  placeholder="Enter email address"
-                  className="flex-1 bg-secondary/50"
-                />
-                <Select>
-                  <SelectTrigger className="w-40 bg-secondary/50">
-                    <SelectValue placeholder="Role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="admin">Admin</SelectItem>
-                    <SelectItem value="analyst">Analyst</SelectItem>
-                    <SelectItem value="viewer">Viewer</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Button>Add User</Button>
-              </div>
-
-              <div className="space-y-3">
-                {[
-                  { email: 'admin@cyberguard.com', role: 'Super Admin', status: 'Active' },
-                  { email: 'analyst@cyberguard.com', role: 'Security Analyst', status: 'Active' },
-                  { email: 'viewer@cyberguard.com', role: 'Viewer', status: 'Inactive' },
-                ].map((user, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 border border-border rounded-lg">
-                    <div>
-                      <p className="font-medium">{user.email}</p>
-                      <p className="text-sm text-muted-foreground">{user.role}</p>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className={`text-xs px-2 py-1 rounded ${
-                        user.status === 'Active' ? 'bg-success/20 text-success' : 'bg-muted text-muted-foreground'
-                      }`}>
-                        {user.status}
-                      </span>
-                      <Button variant="outline" size="sm">Edit</Button>
-                      <Button variant="ghost" size="sm" className="text-destructive">Remove</Button>
-                    </div>
-                  </div>
-                ))}
               </div>
             </CardContent>
           </Card>

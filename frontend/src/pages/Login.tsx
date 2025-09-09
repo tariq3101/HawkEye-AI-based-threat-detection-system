@@ -26,7 +26,7 @@ const Login = () => {
       setLoading(false);
       toast({
         title: "Login Successful",
-        description: "Welcome to CyberGuard Threat Detection System",
+        description: "Welcome to HawkEye Threat Detection System",
       });
       navigate('/dashboard');
     }, 1500);
@@ -48,7 +48,7 @@ const Login = () => {
             </div>
           </div>
           <div>
-            <CardTitle className="text-2xl gradient-text">CyberGuard</CardTitle>
+            <CardTitle className="text-2xl gradient-text">HawkEye</CardTitle>
             <CardDescription className="text-muted-foreground">
               AI-Based Insider Threat Detection System
             </CardDescription>

@@ -107,12 +107,12 @@ const Dashboard = () => {
             Real-time threat monitoring and insider risk analysis
           </p>
         </div>
-        <div className="flex items-center space-x-2">
+        {/* <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-2 text-sm">
             <div className="w-2 h-2 bg-success rounded-full pulse-ring" />
             <span className="text-success font-medium">System Operational</span>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Summary Cards */}
@@ -125,10 +125,6 @@ const Dashboard = () => {
           <CardContent>
             <div className="text-2xl font-bold">1,247</div>
             <p className="text-xs text-muted-foreground">
-              <span className="text-success inline-flex items-center">
-                <TrendingUp className="w-3 h-3 mr-1" />
-                +12% from last month
-              </span>
             </p>
           </CardContent>
         </Card>
@@ -141,10 +137,6 @@ const Dashboard = () => {
           <CardContent>
             <div className="text-2xl font-bold">342</div>
             <p className="text-xs text-muted-foreground">
-              <span className="text-primary inline-flex items-center">
-                <Eye className="w-3 h-3 mr-1" />
-                Real-time monitoring
-              </span>
             </p>
           </CardContent>
         </Card>
@@ -157,24 +149,8 @@ const Dashboard = () => {
           <CardContent>
             <div className="text-2xl font-bold text-destructive">8</div>
             <p className="text-xs text-muted-foreground">
-              <span className="text-destructive inline-flex items-center">
-                <TrendingUp className="w-3 h-3 mr-1" />
-                +3 in last hour
-              </span>
-            </p>
-          </CardContent>
-        </Card>
 
-        <Card className="card-cyber">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">System Health</CardTitle>
-            <Shield className="h-4 w-4 text-success" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-success">98.5%</div>
-            <div className="mt-2">
-              <Progress value={98.5} className="h-2" />
-            </div>
+            </p>
           </CardContent>
         </Card>
       </div>

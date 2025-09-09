@@ -52,12 +52,6 @@ const navigationItems = [
     icon: BarChart3,
     description: 'System Reports'
   },
-  {
-    title: 'System Health',
-    url: '/system-health',
-    icon: Activity,
-    description: 'Performance Monitoring'
-  },
 ];
 
 const settingsItems = [
@@ -87,7 +81,7 @@ export function AppSidebar() {
             </div>
             {!isCollapsed && (
               <div>
-                <h2 className="text-lg font-bold gradient-text">CyberGuard</h2>
+                <h2 className="text-lg font-bold gradient-text">HawkEye</h2>
                 <p className="text-xs text-muted-foreground">Threat Detection</p>
               </div>
             )}
@@ -98,14 +92,14 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Security Operations</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className='space-y-2'>
               {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={isActive(item.url)}>
                     <NavLink 
                       to={item.url}
                       className={({ isActive }) => 
-                        `flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 ${
+                        `flex items-center space-x-3 py-5 px-3 rounded-xl transition-all duration-200 ${
                           isActive 
                             ? 'bg-primary/10 text-primary border border-primary/20 cyber-glow' 
                             : 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
@@ -136,14 +130,14 @@ export function AppSidebar() {
         <SidebarGroup className="mt-auto">
           <SidebarGroupLabel>Administration</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className='space-y-2'>
               {settingsItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={isActive(item.url)}>
                     <NavLink 
                       to={item.url}
                       className={({ isActive }) => 
-                        `flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 ${
+                        `flex items-center space-x-3 py-5 px-3 rounded-xl transition-all duration-200 ${
                           isActive 
                             ? 'bg-primary/10 text-primary border border-primary/20 cyber-glow' 
                             : 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'

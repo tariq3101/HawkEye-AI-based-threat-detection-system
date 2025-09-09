@@ -70,35 +70,6 @@ const Analytics = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">234</div>
-            <p className="text-xs text-muted-foreground">
-              <span className="text-success">-12% from last month</span>
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="card-cyber">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Resolution Rate</CardTitle>
-            <TrendingUp className="h-4 w-4 text-success" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-success">87%</div>
-            <p className="text-xs text-muted-foreground">
-              +5% improvement
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="card-cyber">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Response Time</CardTitle>
-            <Calendar className="h-4 w-4 text-warning" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-warning">2.4h</div>
-            <p className="text-xs text-muted-foreground">
-              -30min from last week
-            </p>
           </CardContent>
         </Card>
 
@@ -109,9 +80,6 @@ const Analytics = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-destructive">23</div>
-            <p className="text-xs text-muted-foreground">
-              Requiring attention
-            </p>
           </CardContent>
         </Card>
       </div>
@@ -140,8 +108,6 @@ const Analytics = () => {
                   }}
                 />
                 <Bar dataKey="incidents" fill="hsl(var(--primary))" name="Total Incidents" />
-                <Bar dataKey="resolved" fill="hsl(var(--success))" name="Resolved" />
-                <Bar dataKey="pending" fill="hsl(var(--destructive))" name="Pending" />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

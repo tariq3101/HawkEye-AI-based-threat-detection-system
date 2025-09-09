@@ -112,11 +112,6 @@ const IntentDetection = () => {
             AI-powered analysis of communications for suspicious intent
           </p>
         </div>
-        <div className="flex items-center space-x-2">
-          <Badge variant="destructive" className="pulse-ring">
-            {flaggedCommunications.filter(c => c.riskLevel === 'high').length} High-Risk Communications
-          </Badge>
-        </div>
       </div>
 
       {/* Summary Cards */}
@@ -291,9 +286,6 @@ const IntentDetection = () => {
                       onClick={() => setSelectedCommunication(selectedCommunication === comm.id ? null : comm.id)}
                     >
                       {selectedCommunication === comm.id ? 'Hide Details' : 'View Full Content'}
-                    </Button>
-                    <Button size="sm" variant="default">
-                      Take Action
                     </Button>
                   </div>
                   

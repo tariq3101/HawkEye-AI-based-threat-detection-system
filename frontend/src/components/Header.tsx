@@ -35,13 +35,13 @@ export function Header() {
 
         {/* Search */}
         <div className="flex items-center space-x-4">
-          <div className="relative hidden md:block">
+          {/* <div className="relative hidden md:block">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               placeholder="Search threats, users, logs..."
               className="pl-10 w-64 bg-secondary/50"
             />
-          </div>
+          </div> */}
 
           {/* Notifications */}
           <DropdownMenu>
@@ -107,7 +107,7 @@ export function Header() {
               <DropdownMenuLabel>
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium">Security Admin</p>
-                  <p className="text-xs text-muted-foreground">admin@cyberguard.com</p>
+                  <p className="text-xs text-muted-foreground">admin@HawkEye.com</p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />

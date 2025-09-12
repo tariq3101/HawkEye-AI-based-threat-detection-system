@@ -1,9 +1,9 @@
-import { 
-  Users, 
-  Activity, 
-  AlertTriangle, 
-  Shield, 
-  TrendingUp, 
+import {
+  Users,
+  Activity,
+  AlertTriangle,
+  Shield,
+  TrendingUp,
   TrendingDown,
   Eye,
   Clock
@@ -11,13 +11,13 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { 
-  LineChart, 
-  Line, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
   ResponsiveContainer,
   BarChart,
   Bar,
@@ -172,40 +172,40 @@ const Dashboard = () => {
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={riskTrendData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                <XAxis 
-                  dataKey="time" 
+                <XAxis
+                  dataKey="time"
                   stroke="hsl(var(--muted-foreground))"
                   fontSize={12}
                 />
-                <YAxis 
+                <YAxis
                   stroke="hsl(var(--muted-foreground))"
                   fontSize={12}
                 />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{
                     backgroundColor: 'hsl(var(--popover))',
                     border: '1px solid hsl(var(--border))',
                     borderRadius: '8px'
                   }}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="highRisk" 
-                  stroke="hsl(var(--destructive))" 
+                <Line
+                  type="monotone"
+                  dataKey="highRisk"
+                  stroke="hsl(var(--destructive))"
                   strokeWidth={2}
                   name="High Risk"
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="mediumRisk" 
-                  stroke="hsl(var(--warning))" 
+                <Line
+                  type="monotone"
+                  dataKey="mediumRisk"
+                  stroke="hsl(var(--warning))"
                   strokeWidth={2}
                   name="Medium Risk"
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="lowRisk" 
-                  stroke="hsl(var(--success))" 
+                <Line
+                  type="monotone"
+                  dataKey="lowRisk"
+                  stroke="hsl(var(--success))"
                   strokeWidth={2}
                   name="Low Risk"
                 />
@@ -230,23 +230,30 @@ const Dashboard = () => {
               <PieChart>
                 <Pie
                   data={threatTypeData}
-                  cx="50%"
+                  cx="52%"
                   cy="50%"
                   innerRadius={60}
                   outerRadius={120}
                   dataKey="value"
                   nameKey="name"
+                  // label={({ name, value }) => `${name}: ${value}%`}
+                  // labelLine={false}
                 >
                   {threatTypeData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip 
+                <Tooltip
                   contentStyle={{
                     backgroundColor: 'hsl(var(--popover))',
                     border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px'
+                    borderRadius: '8px',
                   }}
+
+                  labelStyle={{ color: 'white' }}   // fixes label text
+                  itemStyle={{ color: 'white' }}    // fixes value text
+                  // labelStyle={{ color: 'hsl(var(--foreground))' }}
+                  // itemStyle={{ color: 'hsl(var(--foreground))' }}
                 />
               </PieChart>
             </ResponsiveContainer>
@@ -273,10 +280,9 @@ const Dashboard = () => {
                 className="flex items-center justify-between p-4 rounded-lg bg-secondary/30 border border-border hover:bg-secondary/50 transition-colors"
               >
                 <div className="flex items-center space-x-4">
-                  <div className={`w-3 h-3 rounded-full ${
-                    alert.risk === 'high' ? 'bg-destructive' :
+                  <div className={`w-3 h-3 rounded-full ${alert.risk === 'high' ? 'bg-destructive' :
                     alert.risk === 'medium' ? 'bg-warning' : 'bg-success'
-                  }`} />
+                    }`} />
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
                       <span className="font-medium">{alert.user}</span>

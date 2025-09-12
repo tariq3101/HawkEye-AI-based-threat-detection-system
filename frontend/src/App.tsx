@@ -12,6 +12,7 @@ import IntentDetection from "./pages/IntentDetection";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import Register from "./pages/Register";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
           <Route path="/user-activity" element={<Layout><UserActivity /></Layout>} />
           <Route path="/alerts" element={<Layout><Alerts /></Layout>} />

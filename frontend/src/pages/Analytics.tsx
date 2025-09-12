@@ -171,6 +171,9 @@ const Analytics = () => {
                     border: '1px solid hsl(var(--border))',
                     borderRadius: '8px'
                   }}
+
+                  labelStyle={{ color: 'white' }}   // fixes label text
+                  itemStyle={{ color: 'white' }}    // fixes value text
                 />
               </PieChart>
             </ResponsiveContainer>

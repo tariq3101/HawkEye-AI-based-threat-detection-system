@@ -25,4 +25,4 @@ dist-ssr
 
 .env
 
-/src/api
+/src/api/

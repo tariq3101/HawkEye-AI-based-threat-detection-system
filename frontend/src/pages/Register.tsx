@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
+import api from "@/api/axios";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +24,7 @@ const Register = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
+  
     if (password !== confirmPassword) {
       setLoading(false);
       toast({
@@ -33,26 +34,28 @@ const Register = () => {
       });
       return;
     }
-
-    if (!acceptTerms) {
-      setLoading(false);
-      toast({
-        title: "Terms Required",
-        description: "You must accept the terms and conditions to register.",
-        variant: "destructive",
+  
+    try {
+      const res = await api.post("/register", {
+        username,
+        email,
+        password,
       });
-      return;
-    }
-
-    // Simulate register delay
-    setTimeout(() => {
+  
       setLoading(false);
       toast({
         title: "Registration Successful",
         description: "Admin account created successfully. Please login.",
       });
-      navigate('/');
-    }, 1500);
+      navigate("/");
+    } catch (err: any) {
+      setLoading(false);
+      toast({
+        title: "Registration Failed",
+        description: err.response?.data?.message || "Server error",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -162,7 +165,7 @@ const Register = () => {
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               <Checkbox
                 id="terms"
                 checked={acceptTerms}
@@ -174,7 +177,7 @@ const Register = () => {
               >
                 I accept the terms and conditions
               </Label>
-            </div>
+            </div> */}
 
             <Button
               type="submit"

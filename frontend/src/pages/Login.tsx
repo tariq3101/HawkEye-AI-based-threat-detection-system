@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
+import api from "@/api/axios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,16 +21,27 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    // Simulate login delay
-    setTimeout(() => {
+  
+    try {
+      const res = await api.post("/login", {
+        username,
+        password,
+      });
+  
       setLoading(false);
       toast({
         title: "Login Successful",
         description: "Welcome to HawkEye Threat Detection System",
       });
-      navigate('/dashboard');
-    }, 1500);
+      navigate("/dashboard");
+    } catch (err: any) {
+      setLoading(false);
+      toast({
+        title: "Login Failed",
+        description: err.response?.data?.message || "Invalid credentials",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -98,7 +110,7 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               <Checkbox
                 id="2fa"
                 checked={twoFactorEnabled}
@@ -110,7 +122,7 @@ const Login = () => {
               >
                 Enable Two-Factor Authentication
               </Label>
-            </div>
+            </div> */}
 
             <Button
               type="submit"

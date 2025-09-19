@@ -100,7 +100,7 @@ const Analytics = () => {
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis dataKey="week" stroke="hsl(var(--muted-foreground))" />
                 <YAxis stroke="hsl(var(--muted-foreground))" />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{
                     backgroundColor: 'hsl(var(--popover))',
                     border: '1px solid hsl(var(--border))',
@@ -127,7 +127,7 @@ const Analytics = () => {
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis type="number" stroke="hsl(var(--muted-foreground))" />
                 <YAxis type="category" dataKey="department" stroke="hsl(var(--muted-foreground))" />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{
                     backgroundColor: 'hsl(var(--popover))',
                     border: '1px solid hsl(var(--border))',
@@ -165,16 +165,16 @@ const Analytics = () => {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip 
+                <Tooltip
                   contentStyle={{
-                    backgroundColor: 'hsl(var(--popover))',
-                    border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px'
+                    backgroundColor: "hsl(var(--popover))",
+                    border: "1px solid hsl(var(--border))",
+                    borderRadius: "8px",
                   }}
-
-                  labelStyle={{ color: 'white' }}   // fixes label text
-                  itemStyle={{ color: 'white' }}    // fixes value text
+                  labelStyle={{ color: "hsl(var(--foreground))" }} // uses variable
+                  itemStyle={{ color: "hsl(var(--foreground))" }}  // uses variable
                 />
+
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
@@ -194,24 +194,24 @@ const Analytics = () => {
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
                 <YAxis stroke="hsl(var(--muted-foreground))" />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{
                     backgroundColor: 'hsl(var(--popover))',
                     border: '1px solid hsl(var(--border))',
                     borderRadius: '8px'
                   }}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="incidents" 
-                  stroke="hsl(var(--primary))" 
+                <Line
+                  type="monotone"
+                  dataKey="incidents"
+                  stroke="hsl(var(--primary))"
                   strokeWidth={2}
                   name="Incidents"
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="riskScore" 
-                  stroke="hsl(var(--destructive))" 
+                <Line
+                  type="monotone"
+                  dataKey="riskScore"
+                  stroke="hsl(var(--destructive))"
                   strokeWidth={2}
                   name="Risk Score"
                 />
@@ -245,16 +245,15 @@ const Analytics = () => {
                 {departmentRisk.map((dept, index) => {
                   const riskLevel = dept.riskScore >= 80 ? 'high' : dept.riskScore >= 60 ? 'medium' : 'low';
                   const riskColor = riskLevel === 'high' ? 'destructive' : riskLevel === 'medium' ? 'secondary' : 'outline';
-                  
+
                   return (
                     <tr key={index} className="border-b border-border/50 hover:bg-secondary/30">
                       <td className="p-3 font-medium">{dept.department}</td>
                       <td className="p-3">{dept.users}</td>
                       <td className="p-3">
-                        <span className={`font-semibold ${
-                          riskLevel === 'high' ? 'text-destructive' :
-                          riskLevel === 'medium' ? 'text-warning' : 'text-success'
-                        }`}>
+                        <span className={`font-semibold ${riskLevel === 'high' ? 'text-destructive' :
+                            riskLevel === 'medium' ? 'text-warning' : 'text-success'
+                          }`}>
                           {dept.riskScore}
                         </span>
                       </td>
@@ -265,8 +264,8 @@ const Analytics = () => {
                       </td>
                       <td className="p-3 text-sm text-muted-foreground">
                         {riskLevel === 'high' ? 'Enhanced monitoring required' :
-                         riskLevel === 'medium' ? 'Regular review recommended' :
-                         'Continue standard monitoring'}
+                          riskLevel === 'medium' ? 'Regular review recommended' :
+                            'Continue standard monitoring'}
                       </td>
                     </tr>
                   );

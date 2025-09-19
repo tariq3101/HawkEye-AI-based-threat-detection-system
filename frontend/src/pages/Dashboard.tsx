@@ -236,8 +236,8 @@ const Dashboard = () => {
                   outerRadius={120}
                   dataKey="value"
                   nameKey="name"
-                  // label={({ name, value }) => `${name}: ${value}%`}
-                  // labelLine={false}
+                // label={({ name, value }) => `${name}: ${value}%`}
+                // labelLine={false}
                 >
                   {threatTypeData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
@@ -245,16 +245,14 @@ const Dashboard = () => {
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: 'hsl(var(--popover))',
-                    border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px',
+                    backgroundColor: "hsl(var(--popover))",
+                    border: "1px solid hsl(var(--border))",
+                    borderRadius: "8px",
                   }}
-
-                  labelStyle={{ color: 'white' }}   // fixes label text
-                  itemStyle={{ color: 'white' }}    // fixes value text
-                  // labelStyle={{ color: 'hsl(var(--foreground))' }}
-                  // itemStyle={{ color: 'hsl(var(--foreground))' }}
+                  labelStyle={{ color: "hsl(var(--foreground))" }} // uses variable
+                  itemStyle={{ color: "hsl(var(--foreground))" }}  // uses variable
                 />
+
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
@@ -294,11 +292,11 @@ const Dashboard = () => {
                     <p className="text-xs text-muted-foreground">{alert.type} • {alert.time}</p>
                   </div>
                 </div>
-                <div className="flex space-x-2">
+                {/* <div className="flex space-x-2">
                   <Badge variant="outline" className="text-xs">
                     Investigate
                   </Badge>
-                </div>
+                </div> */}
               </div>
             ))}
           </div>

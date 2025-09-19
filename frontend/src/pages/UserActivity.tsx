@@ -204,7 +204,7 @@ const UserActivity = () => {
                   <TableHead>Location</TableHead>
                   <TableHead>Device</TableHead>
                   <TableHead>Timestamp</TableHead>
-                  <TableHead>Actions</TableHead>
+                  {/* <TableHead>Actions</TableHead> */}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -248,7 +248,7 @@ const UserActivity = () => {
                       <TableCell className="text-sm text-muted-foreground">
                         {activity.timestamp}
                       </TableCell>
-                      <TableCell>
+                      {/* <TableCell>
                         <div className="flex space-x-2">
                           <Button variant="ghost" size="sm">
                             <Eye className="w-4 h-4" />
@@ -259,7 +259,7 @@ const UserActivity = () => {
                             </Button>
                           )}
                         </div>
-                      </TableCell>
+                      </TableCell> */}
                     </TableRow>
                   );
                 })}

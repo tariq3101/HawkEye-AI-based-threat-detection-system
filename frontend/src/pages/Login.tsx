@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Shield, Eye, EyeOff, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,21 @@ const Login = () => {
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [darkMode, setDarkMode] = useState(() => {
+    // Try reading from localStorage
+    const saved = localStorage.getItem("theme");
+    return saved ? saved === "dark" : true; // default to dark
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,10 +44,17 @@ const Login = () => {
       });
   
       setLoading(false);
+  
+      // ✅ Save JWT token in localStorage
+      if (res.data.token) {
+        localStorage.setItem("authToken", res.data.token);
+      }
+  
       toast({
         title: "Login Successful",
         description: "Welcome to HawkEye Threat Detection System",
       });
+  
       navigate("/dashboard");
     } catch (err: any) {
       setLoading(false);
@@ -43,6 +65,7 @@ const Login = () => {
       });
     }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">

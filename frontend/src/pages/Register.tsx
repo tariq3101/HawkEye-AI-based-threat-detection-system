@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Shield, Eye, EyeOff, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -20,6 +20,21 @@ const Register = () => {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [darkMode, setDarkMode] = useState(() => {
+    // Try reading from localStorage
+    const saved = localStorage.getItem("theme");
+    return saved ? saved === "dark" : true; // default to dark
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -210,10 +225,10 @@ const Register = () => {
             </button>
           </div>
 
-          <div className="mt-6 text-center text-sm text-muted-foreground">
+          {/* <div className="mt-6 text-center text-sm text-muted-foreground">
             <p>Admin Access Only</p>
             <p className="text-xs mt-1">Security Level: High Confidential</p>
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </div>

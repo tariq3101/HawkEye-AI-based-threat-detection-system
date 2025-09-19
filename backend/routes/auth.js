@@ -30,35 +30,60 @@ router.post("/register", async (req, res) => {
 });
 
 // LOGIN
+// LOGIN
 router.post("/login", async (req, res) => {
     try {
         const admin = await Admin.findOne({ username: req.body.username });
 
         if (!admin) {
-            return res.status(400).json("Wrong Credentials");
+            return res.status(400).json({ message: "User not found" });
         }
 
         const validated = await bcryptjs.compare(req.body.password, admin.password);
 
         if (!validated) {
-            return res.status(400).json("Wrong Password");
+            return res.status(400).json({ message: "Wrong password" });
         }
 
-        const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        // console.log(token)
-        res.cookie('token', token, {
-            httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production', 
-            sameSite: 'strict',
+        const token = jwt.sign(
+            { id: admin._id, username: admin.username, email: admin.email },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        );
+
+        // Set token as cookie (for frontend auth)
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
             maxAge: 60 * 60 * 1000, // 1 hour
         });
-        console.log(token)
+
+        // Exclude password from response
         const { password, ...others } = admin._doc;
-        res.status(200).json(others);
+
+        // ✅ Return token + admin details in JSON
+        res.status(200).json({
+            message: "Login successful",
+            token,
+            admin: others,
+        });
     } catch (err) {
-        console.error('Login error:', err);
-        res.status(500).json({ message: 'Internal server error.' });
+        console.error("Login error:", err);
+        res.status(500).json({ message: "Internal server error." });
     }
 });
+
+// LOGOUT
+router.post("/logout", (req, res) => {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+    return res.status(200).json({ message: "Logged out successfully" });
+  });
+  
+
 
 module.exports = router;

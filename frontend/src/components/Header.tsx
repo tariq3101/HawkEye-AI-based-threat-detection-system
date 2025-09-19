@@ -1,4 +1,4 @@
-import { Bell, User, Search, Menu } from 'lucide-react';
+import { Bell, User, Search, Menu, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -12,16 +12,33 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export function Header() {
   const navigate = useNavigate();
+  const [darkMode, setDarkMode] = useState(() => {
+    // Try reading from localStorage
+    const saved = localStorage.getItem("theme");
+    return saved ? saved === "dark" : true; // default to dark
+  });
 
   const handleLogout = () => {
     navigate('/');
   };
 
+  // Apply theme on toggle
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-16 items-center px-6 space-x-4">
         {/* Sidebar Toggle */}
         <SidebarTrigger className="text-muted-foreground hover:text-foreground" />
@@ -35,6 +52,19 @@ export function Header() {
 
         {/* Search */}
         <div className="flex items-center space-x-4">
+          {/* Theme Toggle */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setDarkMode(!darkMode)}
+            className="relative"
+          >
+            {darkMode ? (
+              <Sun className="w-5 h-5 text-yellow-400" />
+            ) : (
+              <Moon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+            )}
+          </Button>
           {/* <div className="relative hidden md:block">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
@@ -43,7 +73,7 @@ export function Header() {
             />
           </div> */}
 
-          {/* Notifications */}
+          {/* Notifications
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="relative">
@@ -94,7 +124,7 @@ export function Header() {
                 <span className="text-xs text-muted-foreground">1 hour ago</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
 
           {/* User Menu */}
           <DropdownMenu>

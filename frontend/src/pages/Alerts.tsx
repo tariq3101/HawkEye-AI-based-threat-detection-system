@@ -278,11 +278,11 @@ const Alerts = () => {
                     </div>
                   </div>
                   
-                  <div className="flex flex-col space-y-2 ml-4">
+                  {/* <div className="flex flex-col space-y-2 ml-4">
                     <Button size="sm" variant="ghost">
                       Details
                     </Button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ))}

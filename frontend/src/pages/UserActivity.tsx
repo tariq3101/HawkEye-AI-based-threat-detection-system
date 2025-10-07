@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, Filter, Download, Eye, AlertTriangle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -13,75 +13,22 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-// Sample user activity data
-const userActivities = [
-  {
-    id: 1,
-    user: 'john.doe@company.com',
-    activity: 'File Download',
-    details: 'Downloaded sensitive_data.xlsx (2.1MB)',
-    timestamp: '2024-01-15 14:32:15',
-    riskScore: 85,
-    location: 'New York, US',
-    device: 'Windows Laptop'
-  },
-  {
-    id: 2,
-    user: 'sarah.smith@company.com',
-    activity: 'USB Connect',
-    details: 'Connected external storage device',
-    timestamp: '2024-01-15 14:28:42',
-    riskScore: 65,
-    location: 'San Francisco, US',
-    device: 'MacBook Pro'
-  },
-  {
-    id: 3,
-    user: 'mike.johnson@company.com',
-    activity: 'Login',
-    details: 'Successful login from new location',
-    timestamp: '2024-01-15 14:15:23',
-    riskScore: 45,
-    location: 'London, UK',
-    device: 'Mobile Device'
-  },
-  {
-    id: 4,
-    user: 'lisa.wilson@company.com',
-    activity: 'Email Send',
-    details: 'Sent email with 3 attachments to external domain',
-    timestamp: '2024-01-15 13:58:17',
-    riskScore: 70,
-    location: 'Berlin, DE',
-    device: 'Windows Desktop'
-  },
-  {
-    id: 5,
-    user: 'david.brown@company.com',
-    activity: 'File Access',
-    details: 'Accessed HR directory outside working hours',
-    timestamp: '2024-01-15 22:45:33',
-    riskScore: 90,
-    location: 'Tokyo, JP',
-    device: 'Linux Workstation'
-  },
-  {
-    id: 6,
-    user: 'anna.garcia@company.com',
-    activity: 'Print',
-    details: 'Printed 45 pages of confidential documents',
-    timestamp: '2024-01-15 11:22:08',
-    riskScore: 55,
-    location: 'Madrid, ES',
-    device: 'Windows Laptop'
-  },
-];
+import mlApi from '@/api/mlApi'; // use your Python ML API instance
 
 const UserActivity = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [riskFilter, setRiskFilter] = useState('all');
   const [activityFilter, setActivityFilter] = useState('all');
+  const [userActivities, setUserActivities] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // --- Fetch user activity from Python backend ---
+  useEffect(() => {
+    mlApi.get('/useractivity')
+      .then((res) => setUserActivities(res.data))
+      .catch((err) => console.error("Error fetching user activity:", err))
+      .finally(() => setLoading(false));
+  }, []);
 
   const getRiskLevel = (score: number) => {
     if (score >= 80) return { level: 'high', color: 'destructive' };
@@ -101,15 +48,21 @@ const UserActivity = () => {
                          activity.details.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesRisk = riskFilter === 'all' || 
-                       (riskFilter === 'high' && activity.riskScore >= 80) ||
-                       (riskFilter === 'medium' && activity.riskScore >= 60 && activity.riskScore < 80) ||
-                       (riskFilter === 'low' && activity.riskScore < 60);
+                       (riskFilter === 'high' && activity.risk_score >= 80) ||
+                       (riskFilter === 'medium' && activity.risk_score >= 60 && activity.risk_score < 80) ||
+                       (riskFilter === 'low' && activity.risk_score < 60);
     
     const matchesActivity = activityFilter === 'all' || 
                            activity.activity.toLowerCase().includes(activityFilter.toLowerCase());
     
     return matchesSearch && matchesRisk && matchesActivity;
   });
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-screen text-muted-foreground">
+      Loading user activity...
+    </div>;
+  }
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -204,14 +157,13 @@ const UserActivity = () => {
                   <TableHead>Location</TableHead>
                   <TableHead>Device</TableHead>
                   <TableHead>Timestamp</TableHead>
-                  {/* <TableHead>Actions</TableHead> */}
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredActivities.map((activity) => {
-                  const risk = getRiskLevel(activity.riskScore);
+                {filteredActivities.map((activity, index) => {
+                  const risk = getRiskLevel(activity.risk_score);
                   return (
-                    <TableRow key={activity.id} className="hover:bg-secondary/30">
+                    <TableRow key={index} className="hover:bg-secondary/30">
                       <TableCell>
                         <div className="font-medium">{activity.user}</div>
                       </TableCell>
@@ -231,8 +183,8 @@ const UserActivity = () => {
                             risk.level === 'high' ? 'bg-destructive' :
                             risk.level === 'medium' ? 'bg-warning' : 'bg-success'
                           }`} />
-                          <span className={`font-semibold ${getRiskColor(activity.riskScore)}`}>
-                            {activity.riskScore}
+                          <span className={`font-semibold ${getRiskColor(activity.risk_score)}`}>
+                            {activity.risk_score}
                           </span>
                           <Badge variant={risk.color as any} className="text-xs">
                             {risk.level.toUpperCase()}
@@ -248,18 +200,6 @@ const UserActivity = () => {
                       <TableCell className="text-sm text-muted-foreground">
                         {activity.timestamp}
                       </TableCell>
-                      {/* <TableCell>
-                        <div className="flex space-x-2">
-                          <Button variant="ghost" size="sm">
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                          {activity.riskScore >= 80 && (
-                            <Button variant="ghost" size="sm" className="text-destructive">
-                              <AlertTriangle className="w-4 h-4" />
-                            </Button>
-                          )}
-                        </div>
-                      </TableCell> */}
                     </TableRow>
                   );
                 })}
